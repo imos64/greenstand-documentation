@@ -1,66 +1,93 @@
+# TreeTracker App + Hyperledger Fabric Integration Roadmap
 
-# 🌿 Treetracker + Hyperledger Fabric Integration Roadmap
+## 🚀 Jira Agile Roadmap Overview
 
-This document outlines the Jira-standard roadmap for integrating the Treetracker Android app with a Hyperledger Fabric blockchain network.
-
----
-
-## 🧱 EPIC 1: Blockchain Network Setup
-
-| Story | Description | Est. Sprint |
-|-------|-------------|-------------|
-| FAB-1 | Set up development Fabric network with 2 orgs (Growers, Verifiers) | Sprint 1 |
-| FAB-2 | Write chaincode: `SubmitTreeCapture`, `VerifyCapture`, `IssueToken` | Sprint 1–2 |
-| FAB-3 | Create Fabric CA and enroll users | Sprint 2 |
-| FAB-4 | Unit test all chaincode functions | Sprint 2 |
+This roadmap breaks down the integration of the TreeTracker App with Hyperledger Fabric blockchain into Epics, Milestones, and Sprints using Scrum methodology.
 
 ---
 
-## 🧱 EPIC 2: Middleware API Development
+### 🧩 EPIC 1: Blockchain Infrastructure Setup
 
-| Story | Description | Est. Sprint |
-|-------|-------------|-------------|
-| MID-1 | Create API endpoints: `submitTree`, `getTreeStatus`, `getTokens` | Sprint 2 |
-| MID-2 | Integrate HLF SDK to interact with blockchain | Sprint 2 |
-| MID-3 | Add IPFS upload support for image files | Sprint 3 |
-| MID-4 | Add JWT-based authentication for API | Sprint 3 |
-| MID-5 | Write API unit and integration tests | Sprint 3 |
+**Goal:** Deploy a scalable, secure HLF network to support blockchain-based tree verification.
 
----
-
-## 🧱 EPIC 3: Android App Refactor
-
-| Story | Description | Est. Sprint |
-|-------|-------------|-------------|
-| APP-1 | Remove RetrofitAPI, Firebase, and AWS | Sprint 2 |
-| APP-2 | Create `HLFAPI.kt` to call middleware | Sprint 3 |
-| APP-3 | Create `IPFSService.kt` to upload image and get hash | Sprint 3 |
-| APP-4 | Implement `CaptureHasher.kt` for SHA-256 image hashing | Sprint 3 |
-| APP-5 | Modify `DataSync.kt` to use blockchain flow | Sprint 4 |
-| APP-6 | Add UI for verification status & token balance | Sprint 4 |
+| Sprint | Milestone                 | User Stories                                      | Roles                       | Status |
+| ------ | ------------------------- | ------------------------------------------------- | --------------------------- | ------ |
+| 1      | Deploy Hyperledger Fabric | ✅ Set up HLF network with CA, Orderers, and Peers | DevOps, Blockchain Engineer | To Do  |
+| 1      | Chaincode framework ready | ✅ Install base chaincode templates                | Blockchain Engineer         | To Do  |
 
 ---
 
-## 🧱 EPIC 4: Testing & Deployment
+### 🧩 EPIC 2: Tree Data Capture & Offline Sync
 
-| Story | Description | Est. Sprint |
-|-------|-------------|-------------|
-| TST-1 | End-to-end test: capture → verify → token | Sprint 4 |
-| TST-2 | Load test chaincode and middleware API | Sprint 4 |
-| TST-3 | Deploy Fabric to staging / production | Sprint 5 |
-| TST-4 | Release updated app to testers | Sprint 5 |
+**Goal:** Enable farmers to submit geo-tagged tree data even without internet access.
+
+| Sprint | Milestone                         | User Stories                                 | Roles               | Status      |
+| ------ | --------------------------------- | -------------------------------------------- | ------------------- | ----------- |
+| 1      | Local Data Capture (Offline Mode) | ✅ Capture photo, GPS, metadata offline       | Mobile Dev          | In Progress |
+| 2      | Sync Mechanism                    | ✅ Auto-upload tree data when online          | Mobile, Backend Dev | To Do       |
+| 2      | User Feedback                     | ✅ Upload status and success/failure messages | Frontend Dev        | To Do       |
+
+---
+
+### 🧩 EPIC 3: Blockchain Integration for Verified Trees
+
+**Goal:** Record valid tree data on-chain for immutability and transparency.
+
+| Sprint | Milestone                          | User Stories                                    | Roles              | Status |
+| ------ | ---------------------------------- | ----------------------------------------------- | ------------------ | ------ |
+| 2      | On-Chain Record Storage            | ✅ Record verified trees on blockchain           | Blockchain Dev     | To Do  |
+| 3      | Data Validation via Smart Contract | ✅ Validate GPS, metadata, and detect duplicates | Blockchain, AI Eng | To Do  |
+| 3      | Image Quality Verification         | ✅ AI-powered photo clarity check                | AI Engineer        | To Do  |
 
 ---
 
-## 🗓️ Sprint Summary
+### 🧩 EPIC 4: Token Incentive System
 
-| Sprint | Focus |
-|--------|-------|
-| Sprint 1 | Fabric setup, chaincode dev |
-| Sprint 2 | CA & API scaffolding, Android cleanup |
-| Sprint 3 | Middleware & Android blockchain integration |
-| Sprint 4 | Full integration & UI updates |
-| Sprint 5 | Deployment & release |
-| Sprint 6 | Bug fixes & feedback loop |
+**Goal:** Issue tokens to planters based on verified tree submissions.
+
+| Sprint | Milestone                        | User Stories                            | Roles                         | Status |
+| ------ | -------------------------------- | --------------------------------------- | ----------------------------- | ------ |
+| 3      | Smart Contract for Token Minting | ✅ Token generation on tree verification | Blockchain Smart Contract Dev | To Do  |
+| 3      | Wallet Integration               | ✅ Display user tokens and history       | Frontend Dev, Blockchain Dev  | To Do  |
 
 ---
+
+### 🧩 EPIC 5: Post-Planting Monitoring
+
+**Goal:** Verify tree survival over time and adjust rewards accordingly.
+
+| Sprint | Milestone               | User Stories                                   | Roles          | Status |
+| ------ | ----------------------- | ---------------------------------------------- | -------------- | ------ |
+| 4      | Notification System     | ✅ Alert users for survival check submissions   | Mobile Dev     | To Do  |
+| 4      | Follow-up Image Capture | ✅ Allow submission of new tree photos          | Mobile Dev     | To Do  |
+| 4      | Blockchain Update       | ✅ Update smart contract and adjust token value | Blockchain Dev | To Do  |
+
+---
+
+## 📅 Sprint Timeline (4-Week Cycles)
+
+| Sprint   | Dates (Suggested) | Focus Area                                  |
+| -------- | ----------------- | ------------------------------------------- |
+| Sprint 1 | Week 1–2          | Blockchain infrastructure + Offline Capture |
+| Sprint 2 | Week 3–4          | Sync + Blockchain Record Creation           |
+| Sprint 3 | Week 5–6          | Smart Contract Validation + Token Minting   |
+| Sprint 4 | Week 7–8          | Survival Checks + Monitoring Logic          |
+
+---
+
+## 🧩 Jira Components Mapping
+
+| Component       | Description                                         |
+| --------------- | --------------------------------------------------- |
+| `Blockchain`    | All smart contracts, HLF deployment, on-chain logic |
+| `Mobile App`    | Data capture, UI for users, offline handling        |
+| `Backend`       | APIs, sync services, network status detection       |
+| `AI/Validation` | Image validation, duplicate detection               |
+| `Wallet`        | Token balance display, transaction log              |
+
+---
+
+**Prepared for Agile Scrum implementation of TreeTracker + Hyperledger Fabric integration.**
+
+---
+
