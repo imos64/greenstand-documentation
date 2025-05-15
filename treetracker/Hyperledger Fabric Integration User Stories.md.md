@@ -1,135 +1,165 @@
 
-# 📘 Treetracker + Hyperledger Fabric Integration – User Stories
+# 🌱 TreeTracker + Hyperledger Fabric Integration - Jira Agile User Stories
 
-These user stories follow Jira's Agile format and are aligned with the integration roadmap.
-
----
-
-## 🧱 EPIC 1: Blockchain Network Setup
-
-### FAB-1: Set up Fabric network
-- **As a** DevOps engineer  
-- **I want to** set up a local Hyperledger Fabric test network with 2 organizations  
-- **So that** we can develop and test blockchain transactions  
-- **Acceptance Criteria**:
-  - Two orgs are functional with peers and CA
-  - Supports basic transactions  
-- **Story Points**: 5
-
-### FAB-2: Develop chaincode for tree capture
-- **As a** blockchain developer  
-- **I want to** write chaincode for `SubmitTreeCapture`, `VerifyCapture`, `IssueToken`  
-- **So that** all tree planting data is stored immutably  
-- **Acceptance Criteria**:
-  - Functions created and tested  
-- **Story Points**: 8
-
-### FAB-3: Enroll blockchain users
-- **As a** DevOps engineer  
-- **I want to** configure CA and enroll planter/verifier identities  
-- **So that** authenticated identities can interact with the blockchain  
-- **Acceptance Criteria**:
-  - Fabric identities for both orgs  
-- **Story Points**: 3
+This archive contains the **complete Jira Agile user stories**, broken down into **Scrum-ready tasks**, for integrating the TreeTracker App with Hyperledger Fabric (HLF).
 
 ---
 
-## 🧱 EPIC 2: Middleware API
+## ✅ Jira Agile User Stories
 
-### MID-1: Build submit tree API endpoint
-- **As a** backend developer  
-- **I want to** create a REST API to accept tree data and send it to Fabric  
-- **So that** the Android app can store tree data immutably  
-- **Acceptance Criteria**:
-  - Accepts metadata + hash, submits to Fabric  
-- **Story Points**: 5
+### 🧩 Epic: Tree Verification & Blockchain Integration
 
-### MID-2: Integrate IPFS image storage
-- **As a** backend developer  
-- **I want to** store images in IPFS and return hashes  
-- **So that** images are stored decentralized  
-- **Acceptance Criteria**:
-  - IPFS upload returns working hash  
-- **Story Points**: 5
-
-### MID-3: Create API for query + verification
-- **As a** verifier  
-- **I want to** query and verify tree captures  
-- **So that** I can issue tokens  
-- **Acceptance Criteria**:
-  - API supports GET + verification  
-- **Story Points**: 5
+**Epic Description:**
+Enable secure, decentralized tracking of tree planting data using Hyperledger Fabric for transparency, fraud prevention, and token-based incentives.
 
 ---
 
-## 🧱 EPIC 3: Android App Refactor
+### 🟦 Story 1: Set Up Hyperledger Fabric Network
+**As a** blockchain engineer,  
+**I want to** deploy a Hyperledger Fabric network  
+**So that** we can securely track tree planting records.
 
-### APP-1: Remove legacy backend components
-- **As a** mobile developer  
-- **I want to** remove Retrofit, Firebase, and AWS  
-- **So that** the app only uses blockchain APIs  
-- **Acceptance Criteria**:
-  - Codebase is simplified and functional  
-- **Story Points**: 3
+**Acceptance Criteria:**
+- Fabric network includes orderers and peers
+- Certificate Authorities (CAs) are operational
+- Channels are configured
 
-### APP-2: Implement HLFAPI.kt
-- **As a** mobile developer  
-- **I want to** create API class for blockchain middleware  
-- **So that** we can submit data to blockchain  
-- **Acceptance Criteria**:
-  - Tree data POST requests succeed  
-- **Story Points**: 5
+**Sub-tasks:**
+- Install prerequisites (Docker, Go, Node.js)
+- Set up Fabric network (orderer + peer services)
+- Package and install smart contracts
+- Approve and commit chaincode to the network
 
-### APP-3: Generate image hash
-- **As a** mobile developer  
-- **I want to** hash tree images before upload  
-- **So that** their integrity is preserved  
-- **Acceptance Criteria**:
-  - SHA-256 hashing works  
-- **Story Points**: 3
-
-### APP-4: Upload images to IPFS
-- **As a** mobile developer  
-- **I want to** upload images to IPFS via middleware  
-- **So that** decentralized storage is used  
-- **Acceptance Criteria**:
-  - Image upload returns valid hash  
-- **Story Points**: 3
-
-### APP-5: Update DataSync logic
-- **As a** mobile developer  
-- **I want to** use blockchain for data sync  
-- **So that** all captures are verified and logged immutably  
-- **Acceptance Criteria**:
-  - App syncs through Fabric  
-- **Story Points**: 5
-
-### APP-6: Display verified trees and tokens
-- **As a** planter  
-- **I want to** see my verified trees and tokens  
-- **So that** I understand my contribution and rewards  
-- **Acceptance Criteria**:
-  - UI displays status + tokens  
-- **Story Points**: 5
+📅 Sprint: 1 | 📌 Priority: Highest | 👤 Assignee: DevOps & Blockchain Engineer | 📊 Story Points: 8
 
 ---
 
-## 🧱 EPIC 4: Testing & Deployment
+### 🟦 Story 2: Offline Tree Data Capture
+**As a** smallholder farmer,  
+**I want to** capture tree planting data offline (photo, GPS, metadata)  
+**So that** I can record tree planting efforts without needing internet.
 
-### TST-1: End-to-end blockchain test
-- **As a** QA engineer  
-- **I want to** test full tree → verify → token cycle  
-- **So that** system reliability is ensured  
-- **Acceptance Criteria**:
-  - Data flows across all layers  
-- **Story Points**: 5
+**Acceptance Criteria:**
+- UI for photo + metadata input
+- Data stored locally offline
+- Auto-sync when online
 
-### TST-2: Load test Fabric and middleware
-- **As a** QA engineer  
-- **I want to** test the system under heavy load  
-- **So that** we can prepare for scaling  
-- **Acceptance Criteria**:
-  - 1,000+ simulated captures without crash  
-- **Story Points**: 5
+**Sub-tasks:**
+- Design UI for capturing tree photo
+- Add metadata fields (species, notes, GPS)
+- Implement local storage (SQLite or IndexedDB)
+- Build sync queue for offline data
+
+📅 Sprint: 1 | 📌 Priority: High | 👤 Assignee: Mobile App Developer | 📊 Story Points: 5
 
 ---
+
+### 🟦 Story 3: Automatic Data Sync
+**As a** farmer,  
+**I want to** auto-upload offline data when I regain connectivity  
+**So that** I don’t have to manually manage it.
+
+**Acceptance Criteria:**
+- App detects internet connection
+- Pending offline data is synced
+- UI confirms upload
+
+**Sub-tasks:**
+- Develop network detection logic
+- Create sync service (background process)
+- Add upload status indicators to UI
+- Notify users on sync success/failure
+
+📅 Sprint: 2 | 📌 Priority: Medium | 👤 Assignee: Backend Engineer | 📊 Story Points: 5
+
+---
+
+### 🟦 Story 4: Tree Submission Blockchain Record
+**As a** verifier,  
+**I want to** immutably store submissions on Hyperledger Fabric  
+**So that** data is secure and tamper-proof.
+
+**Acceptance Criteria:**
+- Verified data added to blockchain
+- Record includes ID, GPS, timestamp
+- Retrievable via API
+
+**Sub-tasks:**
+- Define on-chain data schema (tree ID, planter ID, etc.)
+- Implement smart contract for submission recording
+- Create API to query blockchain records
+
+📅 Sprint: 2 | 📌 Priority: High | 👤 Assignee: Blockchain Developer | 📊 Story Points: 8
+
+---
+
+### 🟦 Story 5: Tree Submission Validation
+**As a** validator,  
+**I want to** validate submissions using smart contracts  
+**So that** invalid or duplicate data is rejected.
+
+**Acceptance Criteria:**
+- GPS must be within allowed zones
+- Duplicates are flagged
+- Image quality is checked
+
+**Sub-tasks:**
+- Add GPS validation logic in smart contract
+- Check for duplicate tree submissions
+- Integrate AI to assess photo clarity
+- Flag poor-quality images
+
+📅 Sprint: 3 | 📌 Priority: Critical | 👤 Assignee: Blockchain & AI Engineers | 📊 Story Points: 8
+
+---
+
+### 🟦 Story 6: Token Minting for Verified Trees
+**As a** farmer,  
+**I want to** earn Impact Tokens for verified trees  
+**So that** I’m rewarded for reforestation.
+
+**Acceptance Criteria:**
+- Verified trees trigger token minting
+- Tokens visible in user wallet
+- Token value rules enforced
+
+**Sub-tasks:**
+- Smart contract logic for minting tokens
+- Define token structure (ID, owner, value)
+- UI to show balance and token history
+
+📅 Sprint: 3 | 📌 Priority: High | 👤 Assignee: Blockchain Smart Contract Developer | 📊 Story Points: 5
+
+---
+
+### 🟦 Story 7: Tree Growth Verification
+**As a** farmer,  
+**I want to** get alerts for tree survival checks  
+**So that** I can update the system and earn continued rewards.
+
+**Acceptance Criteria:**
+- Notifications for follow-up checks
+- Photo uploads linked to existing trees
+- Blockchain updated after verification
+
+**Sub-tasks:**
+- Enable push/email alerts for check-ins
+- Build UI for submitting follow-up photos
+- Update smart contract logic with survival status
+- Adjust token balance based on tree survival
+
+📅 Sprint: 4 | 📌 Priority: Medium | 👤 Assignee: Mobile App & Blockchain Developers | 📊 Story Points: 5
+
+---
+
+## ✅ Summary Table
+
+| Story Name                       | Points | Sprint | Priority | Component     |
+|----------------------------------|--------|--------|----------|---------------|
+| HLF Network Setup                | 8      | 1      | Highest  | Blockchain    |
+| Offline Tree Data Capture        | 5      | 1      | High     | Mobile App    |
+| Automatic Data Sync              | 5      | 2      | Medium   | Backend       |
+| Blockchain Record Creation       | 8      | 2      | High     | Blockchain    |
+| Smart Contract-Based Validation  | 8      | 3      | Critical | Blockchain/AI |
+| Token Minting for Verified Trees | 5      | 3      | High     | Blockchain    |
+| Tree Growth Verification         | 5      | 4      | Medium   | Mobile + BC   |
